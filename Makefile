@@ -7,9 +7,10 @@ run:
 	docker run -d -p 5000:5000 my-osrm-backend
 
 deploy:
-	aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 258567528781.dkr.ecr.us-east-2.amazonaws.com
-	docker build -t fastapi-deploy .
-	docker tag fastapi-deploy:latest 258567528781.dkr.ecr.us-east-2.amazonaws.com/fastapi-deploy:latest
-	docker push 258567528781.dkr.ecr.us-east-2.amazonaws.com/fastapi-deploy:latest
+	aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin YOUR_ECR_REGISTRY_URI
+	docker build -t osrm-backend .
+	docker tag osrm-backend:latest YOUR_ECR_REGISTRY_URI/osrm-backend:latest
+	docker push YOUR_ECR_REGISTRY_URI/osrm-backend:latest
+
 all:
 	build run deploy
